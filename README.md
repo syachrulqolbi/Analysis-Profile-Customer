@@ -855,4 +855,4 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
 ]
 ```
 ## Contoh mengunakan POSTMAN
-![image](/Images/Contoh_Postman.png)
+![image](Contoh_Postman.png)
