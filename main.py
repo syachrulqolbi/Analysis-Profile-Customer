@@ -50,6 +50,7 @@ def predict(data: List[Data]):
                               "TOTALUSAGE": "TOTAL_USAGE_BYTE"})
     df["DURATION_HOUR"] = round(df["DURATION"] / 3600).astype(int)
     df["USAGE/HOUR_BYTE"] = df["TOTAL_USAGE_BYTE"] * 3600 / df["DURATION"]
+    df = df.loc[df["DURATION"] > 0]
 
     day = datetime.now().day
     month = datetime.now().month
@@ -71,6 +72,19 @@ def predict(data: List[Data]):
     else:
     	list_date = [datetime(year, month, 1, 0, 0, 0, tzinfo=timezone.utc), datetime(year, month, 11, 0, 0, 0, tzinfo=timezone.utc), datetime(year, month, 21, 0, 0, 0, tzinfo=timezone.utc), datetime(year, month + 1, 1, 0, 0, 0, tzinfo=timezone.utc)]
     
+    list_df = []
+    for i in range(len(df)):
+        dict = {}
+        dict["id"] = i+1
+        dict["nd"] = df["ND"].iloc[i]
+        dict["start_date"] = df["START_DATE"].iloc[i]
+        dict["end_date"] = df["END_DATE"].iloc[i]
+        dict["duration"] = df["DURATION"].iloc[i].tolist()
+        dict["total_usage_byte"] = df["TOTAL_USAGE_BYTE"].iloc[i].tolist()
+        dict["duration/hour"] = df["DURATION_HOUR"].iloc[i].tolist()
+        dict["usage/hour_byte"] = df["USAGE/HOUR_BYTE"].iloc[i].tolist()
+        list_df.append(dict)
+
     list_obj = []
     for i in range(3):
         dict = {}
@@ -98,4 +112,5 @@ def predict(data: List[Data]):
         dict["high_usg"] = df_temp["DURATION"].loc[(df_temp["USAGE/HOUR_BYTE"] >= 1000000000)].sum().tolist()
         list_obj.append(dict)
 
-    return list_obj
+    return {"detail": list_df, 
+            "summary": list_obj}
