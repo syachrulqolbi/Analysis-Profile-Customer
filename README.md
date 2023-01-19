@@ -335,7 +335,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
 {
     "detail": [
         {
-            "id": 1,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-05T06:33:48+00:00",
             "end_date": "2023-01-05T06:41:13+00:00",
@@ -345,7 +346,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 2,
+            "id": 3,
+            "desc": "high_usg",
             "nd": "1234567890",
             "start_date": "2023-01-04T14:57:28+00:00",
             "end_date": "2023-01-05T06:33:47+00:00",
@@ -356,6 +358,7 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
         },
         {
             "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-04T14:56:45+00:00",
             "end_date": "2023-01-04T14:57:27+00:00",
@@ -365,7 +368,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 4,
+            "id": 3,
+            "desc": "high_usg",
             "nd": "1234567890",
             "start_date": "2023-01-04T14:47:24+00:00",
             "end_date": "2023-01-04T14:56:44+00:00",
@@ -375,7 +379,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 2628244857.857143
         },
         {
-            "id": 5,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-04T14:46:45+00:00",
             "end_date": "2023-01-04T14:47:23+00:00",
@@ -385,7 +390,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 6,
+            "id": 3,
+            "desc": "high_usg",
             "nd": "1234567890",
             "start_date": "2023-01-02T22:47:28+00:00",
             "end_date": "2023-01-04T14:46:44+00:00",
@@ -395,7 +401,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 1894251086.9432325
         },
         {
-            "id": 7,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-02T22:45:17+00:00",
             "end_date": "2023-01-02T22:47:27+00:00",
@@ -405,7 +412,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 8,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-02T22:18:16+00:00",
             "end_date": "2023-01-02T22:45:16+00:00",
@@ -415,7 +423,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 6586204.444444444
         },
         {
-            "id": 9,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-02T22:14:17+00:00",
             "end_date": "2023-01-02T22:18:15+00:00",
@@ -425,7 +434,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 10,
+            "id": 3,
+            "desc": "med_usg",
             "nd": "1234567890",
             "start_date": "2023-01-02T15:01:56+00:00",
             "end_date": "2023-01-02T22:14:16+00:00",
@@ -435,7 +445,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 973782392.1973785
         },
         {
-            "id": 11,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-02T15:00:13+00:00",
             "end_date": "2023-01-02T15:01:55+00:00",
@@ -445,7 +456,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 12,
+            "id": 3,
+            "desc": "high_usg",
             "nd": "1234567890",
             "start_date": "2023-01-02T09:11:32+00:00",
             "end_date": "2023-01-02T15:00:12+00:00",
@@ -455,7 +467,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 1543248547.2275336
         },
         {
-            "id": 13,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-02T09:11:06+00:00",
             "end_date": "2023-01-02T09:11:31+00:00",
@@ -465,7 +478,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 14,
+            "id": 3,
+            "desc": "high_usg",
             "nd": "1234567890",
             "start_date": "2023-01-02T08:57:44+00:00",
             "end_date": "2023-01-02T09:11:05+00:00",
@@ -475,7 +489,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 1186278804.494382
         },
         {
-            "id": 15,
+            "id": 3,
+            "desc": "gangguan",
             "nd": "1234567890",
             "start_date": "2023-01-02T08:55:03+00:00",
             "end_date": "2023-01-02T08:57:43+00:00",
@@ -485,7 +500,8 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
             "usage_hour_byte": 0.0
         },
         {
-            "id": 16,
+            "id": 3,
+            "desc": "high_usg",
             "nd": "1234567890",
             "start_date": "2022-12-31T16:50:05+00:00",
             "end_date": "2023-01-02T08:55:02+00:00",
@@ -507,18 +523,18 @@ API akan mengembalikan variabel Percentage dan Predict Description beserta value
         {
             "id": 2,
             "desc": "10-20 hari kebelakang",
-            "gangguan": 2800,
-            "low_usg": 0,
-            "med_usg": 25940,
-            "high_usg": 366713
-        },
-        {
-            "id": 3,
-            "desc": "0-10 hari kebelakang",
             "gangguan": 0,
             "low_usg": 0,
             "med_usg": 0,
             "high_usg": 0
+        },
+        {
+            "id": 3,
+            "desc": "0-10 hari kebelakang",
+            "gangguan": 2800,
+            "low_usg": 0,
+            "med_usg": 25940,
+            "high_usg": 366713
         }
     ]
 }
