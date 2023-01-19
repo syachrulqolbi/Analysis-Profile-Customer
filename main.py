@@ -52,12 +52,12 @@ def predict(data: List[Data]):
     df["USAGE/HOUR_BYTE"] = df["TOTAL_USAGE_BYTE"] * 3600 / df["DURATION"]
     df = df.loc[df["DURATION"] > 0]
 
-    day = datetime.now().day
-    month = datetime.now().month
-    year = datetime.now().year
-    #day = 31
-    #month = 10
-    #year = 2022
+    #day = datetime.now().day
+    #month = datetime.now().month
+    #year = datetime.now().year
+    day = 6
+    month = 1
+    year = 2023
     print(year, month, day)
     if day <= 10:
         if month != 1:
@@ -75,14 +75,30 @@ def predict(data: List[Data]):
     list_df = []
     for i in range(len(df)):
         dict = {}
-        dict["id"] = i+1
+        id = 0
+        for j in range(3):
+            if len(df.iloc[i:i+1].loc[(df["END_DATE"] >= list_date[j]) &
+                                      (df["START_DATE"] < list_date[j+1])]) > 0:
+                id = j+1
+        dict["id"] = id
+        if len(df.iloc[i:i+1].loc[(df["USAGE/HOUR_BYTE"] < 80000000)]) > 0:
+            desc = "gangguan"
+        elif len(df.iloc[i:i+1].loc[(df["USAGE/HOUR_BYTE"] >= 80000000) &
+                                    (df["USAGE/HOUR_BYTE"] < 100000000)]) > 0:
+            desc = "low_usg"
+        elif len(df.iloc[i:i+1].loc[(df["USAGE/HOUR_BYTE"] >= 100000000) &
+                                    (df["USAGE/HOUR_BYTE"] < 1000000000)]) > 0:
+            desc = "med_usg"
+        else:
+            desc = "high_usg"
+        dict["desc"] = desc
         dict["nd"] = df["ND"].iloc[i]
         dict["start_date"] = df["START_DATE"].iloc[i]
         dict["end_date"] = df["END_DATE"].iloc[i]
         dict["duration"] = df["DURATION"].iloc[i].tolist()
         dict["total_usage_byte"] = df["TOTAL_USAGE_BYTE"].iloc[i].tolist()
-        dict["duration/hour"] = df["DURATION_HOUR"].iloc[i].tolist()
-        dict["usage/hour_byte"] = df["USAGE/HOUR_BYTE"].iloc[i].tolist()
+        dict["duration_hour"] = df["DURATION_HOUR"].iloc[i].tolist()
+        dict["usage_hour_byte"] = df["USAGE/HOUR_BYTE"].iloc[i].tolist()
         list_df.append(dict)
 
     list_obj = []
@@ -111,6 +127,6 @@ def predict(data: List[Data]):
         print("High Usage :", df_temp["DURATION"].loc[(df_temp["USAGE/HOUR_BYTE"] >= 1000000000)].sum(), "detik")
         dict["high_usg"] = df_temp["DURATION"].loc[(df_temp["USAGE/HOUR_BYTE"] >= 1000000000)].sum().tolist()
         list_obj.append(dict)
-
+    print(df[["START_DATE", "END_DATE", "DURATION_HOUR", "USAGE/HOUR_BYTE"]])
     return {"detail": list_df, 
             "summary": list_obj}
