@@ -52,12 +52,9 @@ def predict(data: List[Data]):
     df["USAGE/HOUR_BYTE"] = df["TOTAL_USAGE_BYTE"] * 3600 / df["DURATION"]
     df = df.loc[df["DURATION"] > 0]
 
-    #day = datetime.now().day
-    #month = datetime.now().month
-    #year = datetime.now().year
-    day = 6
-    month = 1
-    year = 2023
+    day = datetime.now().day
+    month = datetime.now().month
+    year = datetime.now().year
     print(year, month, day)
     if day <= 10:
         if month != 1:
