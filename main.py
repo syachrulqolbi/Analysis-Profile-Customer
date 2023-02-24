@@ -50,7 +50,7 @@ def predict(data: List[Data]):
     df = pd.DataFrame.from_records(data_temp)
 
     df["USERNAME"] = df["USERNAME"].apply(lambda x: x[:-11])
-    df["STOPTIME"].iloc[0:1] = datetime(2022, 10, 30, 23, 59, 59).strftime('%Y-%m-%d %H:%M:%S')
+    df["STOPTIME"].iloc[0:1] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     df["STARTTIME"] = pd.to_datetime(df["STARTTIME"], utc=True)
     df["STOPTIME"] = pd.to_datetime(df["STOPTIME"], utc=True)
     df["DURATION"] = (pd.to_datetime(df["STOPTIME"]) - pd.to_datetime(df["STARTTIME"])).dt.total_seconds().astype(int)
