@@ -3,7 +3,8 @@ from pydantic import BaseModel
 from typing import List, Union
 import pandas as pd
 import numpy as np
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+import math
 
 app = FastAPI()
 
@@ -50,20 +51,34 @@ def predict(data: List[Data]):
     df = pd.DataFrame.from_records(data_temp)
 
     df["USERNAME"] = df["USERNAME"].apply(lambda x: x[:-11])
-    df["STOPTIME"].iloc[0:1] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    if df["STOPTIME"].iloc[0:1].isnull().all() == True:
+        df["STOPTIME"].iloc[0:1] = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
     df["STARTTIME"] = pd.to_datetime(df["STARTTIME"], utc=True)
     df["STOPTIME"] = pd.to_datetime(df["STOPTIME"], utc=True)
+    
+    if df["STOPTIME"].values[0] < pd.Timestamp('today'):
+        new_row = {"USERNAME": df["USERNAME"].iloc[0],
+                   "STARTTIME": (df["STOPTIME"].iloc[0:1] + timedelta(seconds = 1)).values[0], 
+                   "STOPTIME": datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
+                   "TOTALUSAGE": 0}
+        df = df.append(new_row, ignore_index=True)
+    df["STARTTIME"] = pd.to_datetime(df["STARTTIME"], utc=True)
+    df["STOPTIME"] = pd.to_datetime(df["STOPTIME"], utc=True)
+
     df["DURATION"] = (pd.to_datetime(df["STOPTIME"]) - pd.to_datetime(df["STARTTIME"])).dt.total_seconds().astype(int)
+    df = df.sort_values(by = "STOPTIME", ascending = False).reset_index(drop = True)
     df = df[["USERNAME",
              "STARTTIME",
              "STOPTIME",
              "DURATION",
              "TOTALUSAGE"]]
+    #print(df)
     df = df.rename(columns = {"USERNAME": "ND",
                               "STARTTIME": "START_DATE",
                               "STOPTIME": "END_DATE",
                               "TOTALUSAGE": "TOTAL_USAGE_BYTE"})
     df["DURATION_HOUR"] = round(df["DURATION"] / 3600).astype(int)
+    df["DURATION_SECOND"] = df["DURATION"].astype(int)
     df["USAGE/HOUR_BYTE"] = df["TOTAL_USAGE_BYTE"] * 3600 / df["DURATION"]
     df = df.loc[df["DURATION"] > 0]
 
@@ -87,6 +102,7 @@ def predict(data: List[Data]):
     list_df = []
     for i in range(len(df)):
         dict = {}
+        retry = True
         for j in range(3):
             if len(df.iloc[i:i+1].loc[(df["END_DATE"] >= list_date[j]) &
                                       (df["START_DATE"] < list_date[j+1])]) > 0:
@@ -110,8 +126,14 @@ def predict(data: List[Data]):
                 dict["duration"], dict["unit_duration"] = converter(dict["duration"])
                 dict["total_usage_byte"] = df["TOTAL_USAGE_BYTE"].iloc[i].tolist()
                 dict["duration_hour"] = df["DURATION_HOUR"].iloc[i].tolist()
+                dict["duration_second"] = df["DURATION_SECOND"].iloc[i].tolist()
                 dict["usage_hour_byte"] = df["USAGE/HOUR_BYTE"].iloc[i].tolist()
-                list_df.append(dict)
+                if retry == True:
+                    list_df.append(dict)
+                else:
+                    continue
+                retry = False
+                # Change it, need to separate the date
 
     list_obj = []
     for i in range(3):
